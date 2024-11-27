@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpStatus, Logger } from '@nestjs/common';
+import { Controller, Post, Body, HttpStatus, Logger, Get } from '@nestjs/common';
 import axios from 'axios';
 
 // @Controller('line')
@@ -10,6 +10,10 @@ export class WebhookController {
   private readonly CHANNEL_ACCESS_TOKEN = 'YOUR_CHANNEL_ACCESS_TOKEN';
 
   // Endpoint to handle incoming POST requests from LINE (webhook)
+  @Get()
+  getHello(): string {
+    return "hi";
+  }
   @Post()
   async handleWebhook(@Body() body: any) {
     this.logger.log('Received webhook data:', body);
