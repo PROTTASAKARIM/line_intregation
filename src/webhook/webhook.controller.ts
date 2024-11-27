@@ -15,6 +15,7 @@ export class WebhookController {
 
     // Extract the events array (LINE sends multiple events in a single webhook payload)
     const events = body.events;
+    console.log(events)
 
     let replyToken = null;
 
@@ -41,6 +42,7 @@ export class WebhookController {
       status: HttpStatus.OK,
       message: 'Event processed successfully',
       replyToken: replyToken, // Include replyToken in the response body
+      events:events
     };
   }
 
