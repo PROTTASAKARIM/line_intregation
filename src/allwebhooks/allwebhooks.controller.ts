@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { AllwebhooksService } from './allwebhooks.service';
 
 @Controller('allwebhooks')
@@ -8,9 +8,15 @@ export class AllwebhooksController {
   @Post('push-message')
   async pushMessage(@Body() body: any) {
     const { userId, messages } = body;
-     // Expecting userId and messages in the request body
-     console.log("userId, messages",userId, messages)
+    console.log("userId, messages", userId, messages);
     return this.allwebhooksService.pushMessage(userId, messages);
   }
 
+  // New route for replying to a message
+  @Post('reply-message')
+  async replyMessage(@Body() body: any) {
+    const { replyToken, messages } = body;
+    console.log("replyToken, messages", replyToken, messages);
+    return this.allwebhooksService.replyMessage(replyToken, messages);
+  }
 }

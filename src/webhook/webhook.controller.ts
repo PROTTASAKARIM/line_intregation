@@ -1,8 +1,8 @@
 import { Controller, Post, Body, HttpStatus, Logger } from '@nestjs/common';
 import axios from 'axios';
 
-@Controller('line')
-// @Controller('line-webhook')
+// @Controller('line')
+@Controller('line-webhook')
 export class WebhookController {
   private readonly logger = new Logger(WebhookController.name);
 
