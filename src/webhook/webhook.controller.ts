@@ -12,7 +12,7 @@ export class WebhookController {
   @Post()
   async handleWebhook(@Body() body: any) {
     this.logger.log('Received webhook data:', body);
-
+console.log('logge',this.logger)
     // Extract the events array (LINE sends multiple events in a single webhook payload)
     const events = body.events;
     console.log(events)
