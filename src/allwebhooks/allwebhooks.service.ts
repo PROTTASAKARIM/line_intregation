@@ -15,7 +15,7 @@ export class AllwebhooksService {
       to: userId,
       messages: messages,
     };
-    
+    console.log("payload",payload)
     try {
       console.log(process.env.LINE_CHANNEL_ACCESS_TOKEN)
       const response = await axios.post(
