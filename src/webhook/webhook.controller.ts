@@ -16,11 +16,13 @@ export class WebhookController {
     // Extract the events array (LINE sends multiple events in a single webhook payload)
     const events = body.events;
 
+    let replyToken = null;
+
     if (events && events.length > 0) {
       // Loop through the events (usually only one event)
       for (const event of events) {
         // Extract the Reply Token from the event data
-        const replyToken = event.replyToken;
+        replyToken = event.replyToken;
 
         // Optionally, log the Reply Token for debugging
         this.logger.log(`Extracted Reply Token: ${replyToken}`);
@@ -34,8 +36,12 @@ export class WebhookController {
       }
     }
 
-    // Send a 200 OK response to LINE to acknowledge receipt of the event
-    return { status: HttpStatus.OK, message: 'Event processed successfully' };
+    // Send a 200 OK response with the replyToken included
+    return {
+      status: HttpStatus.OK,
+      message: 'Event processed successfully',
+      replyToken: replyToken, // Include replyToken in the response body
+    };
   }
 
   // Function to send a reply to the user
