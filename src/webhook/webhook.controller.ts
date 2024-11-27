@@ -1,7 +1,8 @@
 import { Controller, Post, Body, HttpStatus, Logger } from '@nestjs/common';
 import axios from 'axios';
 
-@Controller('line-webhook')
+@Controller('line')
+// @Controller('line-webhook')
 export class WebhookController {
   private readonly logger = new Logger(WebhookController.name);
 
@@ -47,6 +48,7 @@ console.log('logge',this.logger)
   }
 
   // Function to send a reply to the user
+  @Post()
   private async sendReply(replyToken: string, message: string) {
     const payload = {
       replyToken: replyToken,  // The Reply Token extracted from the event
@@ -71,4 +73,6 @@ console.log('logge',this.logger)
       this.logger.error('Error sending reply:', error.response ? error.response.data : error);
     }
   }
+
+  
 }
