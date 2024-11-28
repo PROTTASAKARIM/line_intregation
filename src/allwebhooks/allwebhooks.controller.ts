@@ -7,7 +7,7 @@ export class AllwebhooksController {
 
   @Post('push-message')
   async pushMessage(@Body() body: any) {
-    const { userId, messages } = body;
+    const { to:userId, messages } = body;
     console.log("userId, messages", userId, messages);
     return this.allwebhooksService.pushMessage(userId, messages);
   }

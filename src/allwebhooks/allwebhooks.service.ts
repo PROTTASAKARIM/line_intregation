@@ -17,7 +17,7 @@ export class AllwebhooksService {
     };
     console.log("payload",payload)
     try {
-      console.log(process.env.LINE_CHANNEL_ACCESS_TOKEN)
+      // console.log(process.env.LINE_CHANNEL_ACCESS_TOKEN)
       const response = await axios.post(
         'https://api.line.me/v2/bot/message/push',
         payload,
@@ -32,7 +32,7 @@ export class AllwebhooksService {
 
       return { status: 'success', data: response.data };
     } catch (error) {
-      console.log(error.response)
+      // console.log(error.response)
       console.error('Error pushing message:', error.response?.data || error.message);
       throw new HttpException(
         error.response?.data || 'Error pushing message',

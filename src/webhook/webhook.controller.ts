@@ -138,8 +138,8 @@ console.log('logger',this.logger)
     console.log(`Saving userId: ${groupId} to database`);
   }
   async sendReply(replyToken:string, message:string) {
-    const axios = require('axios');
-    axios.post('https://api.line.me/v2/bot/message/reply', {
+   
+    await axios.post('https://api.line.me/v2/bot/message/reply', {
       replyToken: replyToken,
       messages: [{ type: 'text', text: message }]
     }, {
