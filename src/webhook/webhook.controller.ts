@@ -44,21 +44,23 @@ console.log('logger',this.logger)
           const userId = event.source.userId;
   
           // Save userId to your database
-          this.saveUserToDatabase(userId);
+          await this.saveUserToDatabase(userId);
+          await this.sendReply(event.replyToken, `hello friend!`);
         }
         if (event.type === 'unfollow') {
           const userId = event.source.userId;
   
-          // Save userId to your database
-          this.deleteUserToDatabase(userId);
+           // Save userId to your database
+           await this.deleteUserToDatabase(userId);
+          
         }
         if (event.type === 'join') {
           const groupId = event.source.groupId;
-          this.saveGroupToDatabase(groupId);
+          await this.saveGroupToDatabase(groupId);
         }
         if (event.type === 'leave') {
           const groupId = event.source.groupId;
-          this.leaveGroupToDatabase(groupId);
+          await this.leaveGroupToDatabase(groupId);
         }
         if (event.type === 'postback') {
           // Retrieve the data sent by the postback button
