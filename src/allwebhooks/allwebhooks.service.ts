@@ -27,7 +27,7 @@ export class AllwebhooksService {
       },
     };
 
-    console.log('Payload:', JSON.stringify(payload, null, 2));
+    console.log('Payload:', payload);
     console.log('retryKey', retryKey);
     console.log('headers', headers);
 
@@ -58,7 +58,6 @@ export class AllwebhooksService {
       );
     }
   }
-
   // New method for replying to a user
   async getFollowers(limit = 1000, start?: string): Promise<any> {
     try {
@@ -172,4 +171,47 @@ export class AllwebhooksService {
       );
     }
   }
+  async sendBroadCastMsg( messages: any[]): Promise<any> {
+    try {
+      // Generate a unique retry key
+      const retryKey = uuidv4();
+
+      // Prepare the payload
+      const payload = {
+        messages,
+      };
+      console.log('payload', payload);
+      // Make the POST request
+      const response = await axios.post(
+        `https://api.line.me/v2/bot/message/broadcast`,
+        payload,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`,
+            'X-Line-Retry-Key': retryKey,
+          },
+        },
+      );
+      console.log('response', response.data);
+      return response.data;
+    } catch (error) {
+      // Handle errors
+      if (error.response) {
+        throw new HttpException(
+          {
+            message:
+              error.response.data.message || 'Failed to send multicast message',
+            details: error.response.data,
+          },
+          error.response.status || HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
+      throw new HttpException(
+        'Unknown error occurred',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
 }

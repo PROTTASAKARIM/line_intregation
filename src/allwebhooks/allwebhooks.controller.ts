@@ -34,4 +34,10 @@ export class AllwebhooksController {
     const { to, messages } = body;
     return this.allwebhooksService.sendMulticast(to, messages);
   }
+  @Post('broadcast')
+  async sendBroadCast(@Body() body: any) {
+    const { messages } = body;
+console.log("messages",messages)
+    return this.allwebhooksService.sendBroadCastMsg( messages);
+  }
 }
