@@ -37,6 +37,13 @@ console.log('logger',this.logger)
         const userMessage = event.message.text;
         this.logger.log(`Received user message: ${userMessage}`);
 
+        if (event.type === 'follow') {
+          const userId = event.source.userId;
+  
+          // Save userId to your database
+          this.saveUserToDatabase(userId);
+        }
+
         // Send a reply back to the user
         // await this.sendReply(replyToken, `You said: ${userMessage}`);
       }
@@ -51,32 +58,10 @@ console.log('logger',this.logger)
     };
   }
 
-  // Function to send a reply to the user
-  // @Post()
-  // private async sendReply(replyToken: string, message: string) {
-  //   const payload = {
-  //     replyToken: replyToken,  // The Reply Token extracted from the event
-  //     messages: [
-  //       {
-  //         type: 'text',
-  //         text: message,  // The reply message
-  //       },
-  //     ],
-  //   };
-
-  //   try {
-  //     // Send the reply using the LINE Messaging API
-  //     await axios.post('https://api.line.me/v2/bot/message/reply', payload, {
-  //       headers: {
-  //         Authorization: `Bearer ${this.CHANNEL_ACCESS_TOKEN}`,
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-  //     this.logger.log('Reply sent successfully!');
-  //   } catch (error) {
-  //     this.logger.error('Error sending reply:', error.response ? error.response.data : error);
-  //   }
-  // }
+  async saveUserToDatabase(userId:string){
+    /// database save code 
+    console.log(`Saving userId: ${userId} to database`);
+  }
 
   
 }
