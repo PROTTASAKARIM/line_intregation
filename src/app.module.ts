@@ -7,7 +7,7 @@ import { WebhookController } from './webhook/webhook.controller';
 
 @Module({
   imports: [LineImplementationModule, AllwebhooksModule],
-  controllers: [AppController,WebhookController],
+  controllers: [AppController, WebhookController],
   providers: [AppService],
 })
 export class AppModule {}

@@ -1,6 +1,5 @@
 declare module 'http' {
-    interface IncomingMessage {
-      rawBody?: Buffer;
-    }
+  interface IncomingMessage {
+    rawBody?: Buffer;
   }
-  
+}
