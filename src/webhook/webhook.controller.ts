@@ -17,7 +17,7 @@ export class WebhookController {
   @Post()
   async handleWebhook(@Body() body: any) {
     this.logger.log('Received webhook data:', body);
-console.log('logge',this.logger)
+console.log('logger',this.logger)
     // Extract the events array (LINE sends multiple events in a single webhook payload)
     const events = body.events;
     console.log(events)
@@ -38,7 +38,7 @@ console.log('logge',this.logger)
         this.logger.log(`Received user message: ${userMessage}`);
 
         // Send a reply back to the user
-        await this.sendReply(replyToken, `You said: ${userMessage}`);
+        // await this.sendReply(replyToken, `You said: ${userMessage}`);
       }
     }
 
@@ -52,31 +52,31 @@ console.log('logge',this.logger)
   }
 
   // Function to send a reply to the user
-  @Post()
-  private async sendReply(replyToken: string, message: string) {
-    const payload = {
-      replyToken: replyToken,  // The Reply Token extracted from the event
-      messages: [
-        {
-          type: 'text',
-          text: message,  // The reply message
-        },
-      ],
-    };
+  // @Post()
+  // private async sendReply(replyToken: string, message: string) {
+  //   const payload = {
+  //     replyToken: replyToken,  // The Reply Token extracted from the event
+  //     messages: [
+  //       {
+  //         type: 'text',
+  //         text: message,  // The reply message
+  //       },
+  //     ],
+  //   };
 
-    try {
-      // Send the reply using the LINE Messaging API
-      await axios.post('https://api.line.me/v2/bot/message/reply', payload, {
-        headers: {
-          Authorization: `Bearer ${this.CHANNEL_ACCESS_TOKEN}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      this.logger.log('Reply sent successfully!');
-    } catch (error) {
-      this.logger.error('Error sending reply:', error.response ? error.response.data : error);
-    }
-  }
+  //   try {
+  //     // Send the reply using the LINE Messaging API
+  //     await axios.post('https://api.line.me/v2/bot/message/reply', payload, {
+  //       headers: {
+  //         Authorization: `Bearer ${this.CHANNEL_ACCESS_TOKEN}`,
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
+  //     this.logger.log('Reply sent successfully!');
+  //   } catch (error) {
+  //     this.logger.error('Error sending reply:', error.response ? error.response.data : error);
+  //   }
+  // }
 
   
 }
